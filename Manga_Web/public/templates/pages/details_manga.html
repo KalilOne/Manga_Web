@@ -1,0 +1,98 @@
+{% extends "../base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="hero sr-single-hero sr-single" style="background: url('{{ manga.banner }}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <h1> movie listing - list</h1>
+				<ul class="breadcumb">
+					<li class="active"><a href="#">Home</a></li>
+					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+				</ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single movie-single movie_single">
+    <div class="container">
+        <div class="row ipad-width2">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="movie-img sticky-sb">
+                    {% if manga.image == 'undefined' %}
+                    <img src="{% static 'images/no-image.png' %}" alt="">
+                    {% else %}
+                    <img height="401" src="{{ manga.image }}" alt="">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="movie-single-ct main-content">
+                    <h1 class="bd-hd">{{ manga.label }} <span> {{ manga.year }} - current</span></h1>
+                    <div class="social-btn"></div>
+                    <div class="movie-rate" style="padding-bottom: 100px;"></div>
+                    <div class="movie-tabs">
+                        <div class="tabs">
+                            <ul class="tab-links tabs-mv tabs-series">
+                                <li class="active"><a href="#overview">Présentation</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="overview" class="tab active">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-12 col-xs-12">
+                                            <p>{{ manga.desc }}</p>
+                                            <div class="title-hd-sm">
+                                                <h4>Volume en cours</h4>
+                                            </div>
+                                            <!-- movie cast -->
+                                            <div class="mvcast-item">
+                                                <div class="cast-it">
+                                                    <div class="cast-left series-it">
+                                                        <div>
+                                                            <a href="#">Volume {{ manga.volumes }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12 col-sm-12">
+                                            <div class="sb-it">
+                                                <h6>Auteur :</h6>
+                                                <p><a href="{% url 'auteur_details' manga.author %}">{{ manga.author }}</a></p>
+                                            </div>
+                                            <div class="sb-it">
+                                                <h6>Publication :</h6>
+                                                <p>{{ manga.publisher }}</p>
+                                            </div>
+                                            <div class="sb-it">
+                                                <h6>Nombre de volumes :</h6>
+                                                <p>{{ manga.volumes }}</p>
+                                            </div>
+                                            <div class="sb-it">
+                                                <h6>Genres :</h6>
+                                                <p>
+                                                    {% for genre in manga.genre %}
+                                                        {{ genre }}<br>
+                                                    {% endfor %}
+                                                </p>
+                                            </div>
+                                            <div class="sb-it">
+                                                <h6>Date de sortie :</h6>
+                                                <p>{{ manga.firstPublicationDate }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

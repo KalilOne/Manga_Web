@@ -1,0 +1,75 @@
+{% extends "../base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="hero common-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+                    <h1>Liste des Auteurs</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="{% url 'index' %}">Accueil</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span> Liste des Auteurs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- celebrity grid v2 section-->
+<div class="page-single">
+    <div class="container">
+        <div class="row ipad-width2">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="topbar-filter">
+                    <p class="pad-change"><span>{{ nb_auteurs }} auteurs</span> trouvés</p>
+                </div>
+                <div class="container-list">
+                    {% for auteur in auteurs %}
+                        <div class="ceb-item-style-2">
+                            <div class="img-author-container">
+                                {% if auteur.image %}
+                                    <img src="{{ auteur.image }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'images/no-image.png' %}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="ceb-infor">
+                                <h2><a href="{% url 'auteur_details' auteur.label %}">{{auteur.label}}</a></h2>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="topbar-filter">
+                    <label>Auteurs par page:</label>
+                    <select>
+                        <option value="range">36 Auteurs</option>
+                        <option value="saab">18 Auteurs</option>
+                    </select>
+
+                    <div class="pagination2">
+                        {% if pagination.current_page == pagination.prev_page %}
+                        <a href="{% url 'auteurs_list' pagination.prev_page %}" hidden><i class="ion-arrow-left-b"></i></a>
+                        {% else %}
+                        <a href="{% url 'auteurs_list' pagination.prev_page %}"><i class="ion-arrow-left-b"></i></a>
+                        {% endif %}
+                        
+                        <span>Page {{ pagination.current_page }} / {{ pagination.last_page }}</span>
+
+                        {% if pagination.current_page == pagination.next_page %}
+                        <a href="{% url 'auteurs_list' pagination.next_page %}" hidden><i class="ion-arrow-right-b"></i></a>
+                        {% else %}
+                        <a href="{% url 'auteurs_list' pagination.next_page %}"><i class="ion-arrow-right-b"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of celebrity grid v2 section-->
+
+{% endblock %}

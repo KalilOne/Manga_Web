@@ -1,0 +1,71 @@
+{% extends "../base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="hero common-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+                    <h1>Liste des Mangas</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="{% url 'index' %}">Acceuil</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span> Liste des mangas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="topbar-filter fw " style="height:34px;">
+                    <p><span>{{ nb_mangas }} mangas</span> trouvés</p>
+                </div>
+                <div class="flex-wrap-movielist mv-grid-fw">
+
+                    {% for item in mangas %}
+                    <div class="movie-item-style-2 movie-item-style-1">
+                        {% if item.image == 'undefined' %}
+                        <img src="{% static 'images/no-image.png' %}" alt="">
+                        {% else %}
+                        <img height="401" src="{{ item.image }}" alt="">
+                        {% endif %}
+                        <div class="hvr-inner">
+                            <a href="{% url 'manga_details' item.label %}"> Voir plus <i class="ion-android-arrow-dropright"></i> </a>
+                        </div>
+                        <div class="mv-item-infor">
+                            <h6><a href="{% url 'manga_details' item.label %}">{{ item.label }}</a></h6>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+                <div class="topbar-filter" style="height:34px;">
+                    <label></label>
+                    <div class="pagination2">
+                        {% if pagination.current_page == pagination.prev_page %}
+                        <a href="{% url 'manga_list' pagination.prev_page %}" hidden><i class="ion-arrow-left-b"></i></a>
+                        {% else %}
+                        <a href="{% url 'manga_list' pagination.prev_page %}"><i class="ion-arrow-left-b"></i></a>
+                        {% endif %}
+                        
+                        <span>Page {{ pagination.current_page }} / {{ pagination.last_page }}</span>
+
+                        {% if pagination.current_page == pagination.next_page %}
+                        <a href="{% url 'manga_list' pagination.next_page %}" hidden><i class="ion-arrow-right-b"></i></a>
+                        {% else %}
+                        <a href="{% url 'manga_list' pagination.next_page %}"><i class="ion-arrow-right-b"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
